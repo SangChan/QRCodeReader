@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6345DBCD1EED522B00BAEA5C /* QRCodeReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6345DBCC1EED522B00BAEA5C /* QRCodeReaderViewController.swift */; };
+		6345DBCF1EED524200BAEA5C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6345DBCE1EED524200BAEA5C /* DetailViewController.swift */; };
 		63787D2D1EEC051C0034B69B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63787D2C1EEC051C0034B69B /* AppDelegate.swift */; };
 		63787D2F1EEC051C0034B69B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63787D2E1EEC051C0034B69B /* ViewController.swift */; };
 		63787D321EEC051D0034B69B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63787D301EEC051D0034B69B /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6345DBCC1EED522B00BAEA5C /* QRCodeReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderViewController.swift; sourceTree = "<group>"; };
+		6345DBCE1EED524200BAEA5C /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		63787D291EEC051C0034B69B /* QRCodeReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCodeReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63787D2C1EEC051C0034B69B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63787D2E1EEC051C0034B69B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +60,8 @@
 			children = (
 				63787D2C1EEC051C0034B69B /* AppDelegate.swift */,
 				63787D2E1EEC051C0034B69B /* ViewController.swift */,
+				6345DBCC1EED522B00BAEA5C /* QRCodeReaderViewController.swift */,
+				6345DBCE1EED524200BAEA5C /* DetailViewController.swift */,
 				63787D301EEC051D0034B69B /* Main.storyboard */,
 				63787D331EEC051D0034B69B /* Assets.xcassets */,
 				63787D351EEC051D0034B69B /* LaunchScreen.storyboard */,
@@ -137,8 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6345DBCD1EED522B00BAEA5C /* QRCodeReaderViewController.swift in Sources */,
 				63787D2F1EEC051C0034B69B /* ViewController.swift in Sources */,
 				63787D2D1EEC051C0034B69B /* AppDelegate.swift in Sources */,
+				6345DBCF1EED524200BAEA5C /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +273,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CBUJK8CFZ3;
 				INFOPLIST_FILE = QRCodeReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.verandastudio.QRCodeReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -278,6 +287,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CBUJK8CFZ3;
 				INFOPLIST_FILE = QRCodeReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.verandastudio.QRCodeReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,6 +314,7 @@
 				63787D3D1EEC051D0034B69B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
