@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 class QRCodeReaderViewController: UIViewController {
-
+    let captureSession = AVCaptureSession()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
