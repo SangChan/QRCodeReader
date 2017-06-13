@@ -10,12 +10,37 @@ import UIKit
 import AVFoundation
 
 class QRCodeReaderViewController: UIViewController {
-    let captureSession = AVCaptureSession()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let session = AVCaptureSession()
+        session.sessionPreset = AVCaptureSessionPresetMedium
+        
+        let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        
+        let videoInput = try! AVCaptureDeviceInput(device: videoDevice)
+        
+        session.addInput(videoInput)
+        
+        let frameOut = AVCaptureVideoDataOutput()
+        session.addOutput(frameOut)
+        frameOut.connection(withMediaType: AVMediaTypeVideo)
+        if let previewLayer = AVCaptureVideoPreviewLayer(session: session) {
+            previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            let rootLayer = self.view.layer
+            rootLayer.masksToBounds = true
+            previewLayer.frame = rootLayer.bounds
+            rootLayer.addSublayer(previewLayer)
+        }
+        
+        let output = AVCaptureMetadataOutput()
+        output.setMetadataObjectsDelegate(self, queue:DispatchQueue.main)
+        session.addOutput(output)
+        output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+        
+        session.startRunning()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,5 +58,19 @@ class QRCodeReaderViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+}
 
+extension QRCodeReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+        for metadata in metadataObjects as! [AVMetadataObject] {
+            if metadata.type == AVMetadataObjectTypeQRCode {
+                // This will never happen; nobody has ever scanned a QR code... ever
+                let QRCode = (metadata as! AVMetadataMachineReadableCodeObject).stringValue
+                print("QRCode: \(QRCode)")
+            }
+        }
+        
+    }
 }
