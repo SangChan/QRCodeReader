@@ -120,18 +120,29 @@ extension QRCodeReaderViewController : UIImagePickerControllerDelegate, UINaviga
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let image:UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let originalImage:UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
-        let detector:CIDetector = CIDetector(ofType: CIDetectorTypeQRCode, context:nil, options:[CIDetectorAccuracy: CIDetectorAccuracyHigh])!
-        let ciImage: CIImage = CIImage(image: image)!
+        let image:UIImage = self.reduceImageSize(image: originalImage)
         
-        let features = detector.features(in: ciImage)
-        
-        for feature in features as! [CIQRCodeFeature] {
-            print(feature.messageString!)
+        if let ciImage: CIImage = CIImage(image: image), let detector:CIDetector = CIDetector(ofType: CIDetectorTypeQRCode, context:nil, options:[CIDetectorAccuracy: CIDetectorAccuracyHigh]) {
+            let features = detector.features(in: ciImage)
+            for feature in features as! [CIQRCodeFeature] {
+                if let stringValue = feature.messageString {
+                    let result = QRCode(type: AVMetadataObjectTypeQRCode, value: stringValue)
+                    print("result : \(result)")
+                }
+            }
         }
         
-        
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func reduceImageSize(image:UIImage) -> UIImage{
+        let newSize = CGSize(width: image.size.width/2.0, height:image.size.height/2.0)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+        image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: newSize.width, height: newSize.height)))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }
