@@ -30,10 +30,17 @@ class QRCodeReaderViewController: UIViewController {
     @IBOutlet weak var showImagePickeButton: UIButton!
     @IBOutlet weak var cameraContainer: UIView!
     let session = AVCaptureSession()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.startSession()
+        
+        
+        let bgView = BackgroundView(frame: self.view.frame)
+        self.view.addSubview(bgView)
+        
+        self.view.bringSubview(toFront: showImagePickeButton)
         
     }
 
@@ -59,6 +66,7 @@ class QRCodeReaderViewController: UIViewController {
     
     
 }
+
 
 extension QRCodeReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
     func startSession() {
@@ -138,11 +146,65 @@ extension QRCodeReaderViewController : UIImagePickerControllerDelegate, UINaviga
     }
     
     func reduceImageSize(image:UIImage) -> UIImage{
-        let newSize = CGSize(width: image.size.width/2.0, height:image.size.height/2.0)
+        let scaleFactor = self.getScaleFactor(length: max(image.size.width, image.size.height))
+        let newSize = CGSize(width: image.size.width * scaleFactor, height:image.size.height * scaleFactor)
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
         image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: newSize.width, height: newSize.height)))
         let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
     }
+    
+    func getScaleFactor(length:CGFloat) -> CGFloat {
+        let maximumLength : CGFloat = 1200.0
+        if length > maximumLength {
+            return maximumLength / length
+        }
+        
+        return 1.0
+    }
+}
+
+class BackgroundView : UIView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.isOpaque = false
+        self.backgroundColor = UIColor.clear
+        self.clearsContextBeforeDrawing = false
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.isOpaque = false
+        self.backgroundColor = UIColor.clear
+        self.clearsContextBeforeDrawing = false
+    }
+    
+    override func draw(_ rect: CGRect) {
+        let context = UIGraphicsGetCurrentContext()
+        context!.clear(self.bounds)
+        
+        let clipPath = UIBezierPath(rect: self.bounds)
+        
+        let size : CGFloat = 200.0
+        let originX = (self.bounds.width - size) / 2.0
+        let originY = (self.bounds.height - size) / 2.0
+        
+        let transparentFrame = CGRect(x: originX, y: originY, width: size, height: size)
+        
+        let path = UIBezierPath(rect: transparentFrame)
+        clipPath.append(path)
+        
+        clipPath.usesEvenOddFillRule = true
+        clipPath.addClip()
+        
+        let tintColor = UIColor.black
+        
+        context!.setAlpha(0.7)
+        
+        tintColor.setFill()
+        
+        clipPath.fill()
+    }
+
 }
