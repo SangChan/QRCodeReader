@@ -14,6 +14,7 @@
 		63787D321EEC051D0034B69B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63787D301EEC051D0034B69B /* Main.storyboard */; };
 		63787D341EEC051D0034B69B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63787D331EEC051D0034B69B /* Assets.xcassets */; };
 		63787D371EEC051D0034B69B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63787D351EEC051D0034B69B /* LaunchScreen.storyboard */; };
+		63AF67C41EF517050088C099 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63AF67C31EF517050088C099 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		63787D331EEC051D0034B69B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63787D361EEC051D0034B69B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63787D381EEC051D0034B69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63AF67C31EF517050088C099 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63AF67C41EF517050088C099 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +47,7 @@
 			children = (
 				63787D2B1EEC051C0034B69B /* QRCodeReader */,
 				63787D2A1EEC051C0034B69B /* Products */,
+				63AF67C21EF517040088C099 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +72,14 @@
 				63787D381EEC051D0034B69B /* Info.plist */,
 			);
 			path = QRCodeReader;
+			sourceTree = "<group>";
+		};
+		63AF67C21EF517040088C099 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63AF67C31EF517050088C099 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
