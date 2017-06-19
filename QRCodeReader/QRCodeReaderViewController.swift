@@ -36,12 +36,6 @@ class QRCodeReaderViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.startSession()
         
-        
-        let bgView = BackgroundView(frame: self.view.frame)
-        self.view.addSubview(bgView)
-        
-        self.view.bringSubview(toFront: showImagePickeButton)
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -186,9 +180,7 @@ class BackgroundView : UIView {
         clipPath.usesEvenOddFillRule = true
         clipPath.addClip()
         
-        let tintColor = UIColor.black
-        
-        context!.setAlpha(0.7)
+        let tintColor = UIColor(red: 0, green: 28/255.0, blue: 60/255.0, alpha: 0.5)
         
         tintColor.setFill()
         
