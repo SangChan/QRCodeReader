@@ -12,18 +12,71 @@ import AVFoundation
 struct QRCode {
     let type  : String
     let value : String
+    
+    func parse() -> FreeClassInfo? {
+        let divideBySharp = value.components(separatedBy: "#")
+        guard divideBySharp.count == 2 else {
+            return nil
+        }
+        
+        var dic = [String:String]()
+        dic["domain"] = divideBySharp[0]
+        guard divideBySharp[1].contains(";") else {
+            return nil
+        }
+        
+        let divideBySemiColon = divideBySharp[1].components(separatedBy: ";")
+        for data in divideBySemiColon {
+            if data.contains("=") {
+                let detail = data.components(separatedBy: "=")
+                dic[detail[0]] =  detail[1]
+            }
+        }
+        return FreeClassInfo(dictionary: dic)
+    }
 }
 
 struct FreeClassInfo {
-    let startTime  : Date
-    let endTime    : Date
     let domain     : String
     let freePL     : Bool
+    let startTime  : String
+    let endTime    : String
+    let cc         : String
     let contentId  : String
     let uniqueId   : String
     let role       : String
     let name       : String
     let layoutCode : String
+    let hashCode   : String
+    
+    init?(dictionary: [String:String]) {
+        guard let domain    = dictionary["domain"],
+            let freePLStr   = dictionary["freepl"],
+            let startTime   = dictionary["starttime"],
+            let endTime     = dictionary["endtime"],
+            let cc          = dictionary["cc"],
+            let contentId   = dictionary["contentid"],
+            let uniqueId    = dictionary["uniqueid"],
+            let role        = dictionary["role"],
+            let name        = dictionary["name"],
+            let layoutCode  = dictionary["layoutcode"],
+            let hashCode    = dictionary["hashcode"]
+        else {
+            return nil
+        }
+        
+        self.domain = domain
+        self.freePL = (freePLStr == "true") ? true : false
+        self.startTime = startTime
+        self.endTime = endTime
+        self.cc = cc
+        self.contentId = contentId
+        self.uniqueId = uniqueId
+        self.role = role
+        self.name = name
+        self.layoutCode = layoutCode
+        self.hashCode = hashCode
+    }
 }
 
 class QRCodeReaderViewController: UIViewController {
@@ -91,7 +144,9 @@ extension QRCodeReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
             if let readableCodeObject = current as? AVMetadataMachineReadableCodeObject, readableCodeObject.type == AVMetadataObjectTypeQRCode  {
                 if let stringValue = readableCodeObject.stringValue {
                     let result = QRCode(type: readableCodeObject.type, value: stringValue)
-                    print("result : \(result)")
+                    if let parsedResult = result.parse() {
+                        print("parsed = \(parsedResult.uniqueId)")
+                    }
                 }
             }
         }
@@ -119,7 +174,9 @@ extension QRCodeReaderViewController : UIImagePickerControllerDelegate, UINaviga
             for feature in features as! [CIQRCodeFeature] {
                 if let stringValue = feature.messageString {
                     let result = QRCode(type: AVMetadataObjectTypeQRCode, value: stringValue)
-                    print("result : \(result)")
+                    if let parsedResult = result.parse() {
+                        print("parsed = \(parsedResult.uniqueId)")
+                    }
                 }
             }
         }
