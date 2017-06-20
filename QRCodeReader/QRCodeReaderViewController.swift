@@ -181,10 +181,34 @@ class BackgroundView : UIView {
         clipPath.addClip()
         
         let tintColor = UIColor(red: 0, green: 28/255.0, blue: 60/255.0, alpha: 0.5)
-        
         tintColor.setFill()
-        
         clipPath.fill()
+        
+        let whiteColor = UIColor.white
+        whiteColor.setStroke()
+        path.stroke()
+        
+        let labelHeight : CGFloat = 20.0
+        
+        let label = UILabel(frame: CGRect(x: self.bounds.origin.x, y: transparentFrame.origin.y - (labelHeight * 2), width: self.bounds.size.width, height:labelHeight))
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.text = "Scan QR Code to take a taster class"
+
+        self.addSubview(label)
+        
+        let scanLine = UIView(frame: CGRect(x: transparentFrame.origin.x, y: transparentFrame.origin.y, width: transparentFrame.size.width, height: 3.0))
+        scanLine.backgroundColor = UIColor.blue
+        self.addSubview(scanLine)
+        
+        
+        UIView.animate(withDuration: 3.0, animations: { 
+            scanLine.frame = CGRect(x: transparentFrame.origin.x, y: transparentFrame.origin.y+transparentFrame.size.height, width: transparentFrame.size.width, height: 3.0)
+        }) { (done) in
+            scanLine.frame = CGRect(x: transparentFrame.origin.x, y: transparentFrame.origin.y, width: transparentFrame.size.width, height: 3.0)
+        }
+        
     }
 
 }
