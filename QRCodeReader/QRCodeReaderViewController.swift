@@ -82,13 +82,16 @@ struct FreeClassInfo {
 class QRCodeReaderViewController: UIViewController {
     @IBOutlet weak var showImagePickeButton: UIButton!
     @IBOutlet weak var cameraContainer: UIView!
+    @IBOutlet weak var progressContainer: ScanProcessingView!
+    
     let session = AVCaptureSession()
+    var ableToScan : Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.hideProgressView()
         self.startSession()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,6 +109,7 @@ class QRCodeReaderViewController: UIViewController {
 extension QRCodeReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
     func startSession() {
         if session.isRunning { return }
+        ableToScan = true
         session.sessionPreset = AVCaptureSessionPresetHigh
         
         let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
@@ -140,16 +144,28 @@ extension QRCodeReaderViewController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+        guard ableToScan == true else { return }
         for current in metadataObjects {
             if let readableCodeObject = current as? AVMetadataMachineReadableCodeObject, readableCodeObject.type == AVMetadataObjectTypeQRCode  {
                 if let stringValue = readableCodeObject.stringValue {
                     let result = QRCode(type: readableCodeObject.type, value: stringValue)
                     if let parsedResult = result.parse() {
+                        self.showProgressView()
                         print("parsed = \(parsedResult.uniqueId)")
                     }
                 }
             }
         }
+    }
+    
+    func showProgressView() {
+        self.ableToScan = false
+        self.progressContainer.show()
+    }
+    
+    func hideProgressView() {
+        self.ableToScan = true
+        self.progressContainer.hide()
     }
 }
 
@@ -175,6 +191,7 @@ extension QRCodeReaderViewController : UIImagePickerControllerDelegate, UINaviga
                 if let stringValue = feature.messageString {
                     let result = QRCode(type: AVMetadataObjectTypeQRCode, value: stringValue)
                     if let parsedResult = result.parse() {
+                        self.showProgressView()
                         print("parsed = \(parsedResult.uniqueId)")
                     }
                 }
@@ -205,19 +222,6 @@ extension QRCodeReaderViewController : UIImagePickerControllerDelegate, UINaviga
 }
 
 class BackgroundView : UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.isOpaque = false
-        self.backgroundColor = UIColor.clear
-        self.clearsContextBeforeDrawing = false
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.isOpaque = false
-        self.backgroundColor = UIColor.clear
-        self.clearsContextBeforeDrawing = false
-    }
     
     override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
@@ -268,4 +272,46 @@ class BackgroundView : UIView {
         
     }
 
+}
+
+class ScanProcessingView : UIView {
+    override func draw(_ rect: CGRect) {
+        let context = UIGraphicsGetCurrentContext()
+        context!.clear(self.bounds)
+        
+        let size : CGFloat = 200.0
+        let originX = (self.bounds.width - size) / 2.0
+        let originY = (self.bounds.height - size) / 2.0
+        
+        let transparentFrame = CGRect(x: originX, y: originY, width: size, height: size)
+        
+        let path = UIBezierPath(rect: transparentFrame)
+        
+        let tintColor = UIColor(red: 0, green: 28/255.0, blue: 60/255.0, alpha: 0.3)
+        tintColor.setFill()
+        path.fill()
+        
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator.frame = transparentFrame
+        activityIndicator.startAnimating()
+        self.addSubview(activityIndicator)
+        
+        let labelHeight : CGFloat = 20.0
+        
+        let label = UILabel(frame: CGRect(x: transparentFrame.origin.x, y: transparentFrame.origin.y + (size / 2) + labelHeight , width: transparentFrame.width, height:labelHeight))
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.text = "Loading"
+        
+        self.addSubview(label)
+    }
+    
+    func hide() {
+        self.isHidden = true
+    }
+    
+    func show() {
+        self.isHidden = false
+    }
 }

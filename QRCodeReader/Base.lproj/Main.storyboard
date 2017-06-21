@@ -60,7 +60,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4r-7U-q8F" userLabel="Progress Container">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4r-7U-q8F" userLabel="Progress Container" customClass="ScanProcessingView" customModule="QRCodeReader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -96,6 +96,7 @@
                     </view>
                     <connections>
                         <outlet property="cameraContainer" destination="fwJ-Ae-Uxt" id="N39-WA-9m5"/>
+                        <outlet property="progressContainer" destination="L4r-7U-q8F" id="dJa-Xx-67a"/>
                         <outlet property="showImagePickeButton" destination="CvR-YO-3sS" id="DD9-pY-7kK"/>
                     </connections>
                 </viewController>
