@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,17 +53,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwJ-Ae-Uxt">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvl-zj-fVI" userLabel="UI Container">
-                                <rect key="frame" x="-1" y="10" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvl-zj-fVI" userLabel="UI Container" customClass="BackgroundView" customModule="QRCodeReader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L4r-7U-q8F" userLabel="Progress Container">
-                                <rect key="frame" x="0.0" y="10" width="375" height="647"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L4r-7U-q8F" userLabel="Progress Container" customClass="ScanProcessingView" customModule="QRCodeReader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CvR-YO-3sS">
                                 <rect key="frame" x="313" y="28" width="46" height="30"/>
@@ -79,20 +78,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Qvl-zj-fVI" firstAttribute="height" secondItem="fwJ-Ae-Uxt" secondAttribute="height" id="8dG-cb-f6Y"/>
-                            <constraint firstItem="Qvl-zj-fVI" firstAttribute="width" secondItem="fwJ-Ae-Uxt" secondAttribute="width" id="DoK-si-XK7"/>
-                            <constraint firstItem="fwJ-Ae-Uxt" firstAttribute="bottom" secondItem="WlZ-kb-cEx" secondAttribute="top" id="H3S-oa-TDf"/>
-                            <constraint firstItem="fwJ-Ae-Uxt" firstAttribute="leading" secondItem="XmW-ra-u8K" secondAttribute="leading" id="N6c-Ym-kOZ"/>
+                            <constraint firstItem="fwJ-Ae-Uxt" firstAttribute="width" secondItem="XmW-ra-u8K" secondAttribute="width" id="7w0-UO-aLL"/>
+                            <constraint firstItem="Qvl-zj-fVI" firstAttribute="width" secondItem="XmW-ra-u8K" secondAttribute="width" id="Cvo-yJ-iJ0"/>
+                            <constraint firstItem="Qvl-zj-fVI" firstAttribute="centerX" secondItem="XmW-ra-u8K" secondAttribute="centerX" id="GOG-1Z-DYH"/>
                             <constraint firstItem="CvR-YO-3sS" firstAttribute="top" secondItem="ZvZ-HH-SKn" secondAttribute="bottom" constant="8" id="Ntc-4f-Hti"/>
+                            <constraint firstItem="fwJ-Ae-Uxt" firstAttribute="centerX" secondItem="XmW-ra-u8K" secondAttribute="centerX" id="OSi-n9-6XL"/>
+                            <constraint firstItem="Qvl-zj-fVI" firstAttribute="height" secondItem="XmW-ra-u8K" secondAttribute="height" id="Oyf-FG-oOL"/>
+                            <constraint firstItem="L4r-7U-q8F" firstAttribute="centerY" secondItem="XmW-ra-u8K" secondAttribute="centerY" id="QE7-BL-Eqm"/>
                             <constraint firstItem="Qvl-zj-fVI" firstAttribute="centerY" secondItem="XmW-ra-u8K" secondAttribute="centerY" id="SKK-xT-3YQ"/>
-                            <constraint firstAttribute="trailing" secondItem="fwJ-Ae-Uxt" secondAttribute="trailing" id="hi8-Vc-7pZ"/>
-                            <constraint firstItem="Qvl-zj-fVI" firstAttribute="leading" secondItem="XmW-ra-u8K" secondAttribute="leadingMargin" constant="-17" id="ksh-gj-pik"/>
+                            <constraint firstItem="fwJ-Ae-Uxt" firstAttribute="centerY" secondItem="XmW-ra-u8K" secondAttribute="centerY" id="WVc-kd-3it"/>
+                            <constraint firstItem="L4r-7U-q8F" firstAttribute="width" secondItem="XmW-ra-u8K" secondAttribute="width" id="deD-4O-KVe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CvR-YO-3sS" secondAttribute="trailing" id="ngn-ST-b5B"/>
-                            <constraint firstItem="fwJ-Ae-Uxt" firstAttribute="top" secondItem="ZvZ-HH-SKn" secondAttribute="bottom" id="oto-Te-vSd"/>
+                            <constraint firstItem="fwJ-Ae-Uxt" firstAttribute="height" secondItem="XmW-ra-u8K" secondAttribute="height" id="nm6-M7-UB6"/>
+                            <constraint firstItem="L4r-7U-q8F" firstAttribute="height" secondItem="XmW-ra-u8K" secondAttribute="height" id="vXs-3o-hjH"/>
+                            <constraint firstItem="L4r-7U-q8F" firstAttribute="centerX" secondItem="XmW-ra-u8K" secondAttribute="centerX" id="yOf-f4-4EM"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraContainer" destination="fwJ-Ae-Uxt" id="N39-WA-9m5"/>
+                        <outlet property="progressContainer" destination="L4r-7U-q8F" id="dJa-Xx-67a"/>
                         <outlet property="showImagePickeButton" destination="CvR-YO-3sS" id="DD9-pY-7kK"/>
                     </connections>
                 </viewController>
