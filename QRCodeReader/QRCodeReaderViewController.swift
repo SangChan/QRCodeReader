@@ -203,9 +203,13 @@ extension QRCodeReaderViewController : UIImagePickerControllerDelegate, UINaviga
     
     func reduceImageSize(image:UIImage) -> UIImage{
         let scaleFactor = self.getScaleFactor(length: max(image.size.width, image.size.height))
-        let newSize = CGSize(width: image.size.width * scaleFactor, height:image.size.height * scaleFactor)
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
-        image.draw(in: CGRect(origin: CGPoint.zero, size: CGSize(width: newSize.width, height: newSize.height)))
+        let newImageSize = CGSize(width: image.size.width * scaleFactor, height:image.size.height * scaleFactor)
+        let newCanvasSize = CGSize(width: newImageSize.width * 1.1, height: newImageSize.height * 1.1)
+        UIGraphicsBeginImageContextWithOptions(newCanvasSize, false, 0.0);
+        UIColor.white.set()
+        UIRectFill(CGRect(x: 0, y: 0, width: newCanvasSize.width, height: newCanvasSize.height))
+        let newImageCenter = CGPoint(x: (newCanvasSize.width - newImageSize.width)/2.0, y: (newCanvasSize.height - newImageSize.height)/2.0)
+        image.draw(in: CGRect(origin: newImageCenter, size: newImageSize))
         let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
